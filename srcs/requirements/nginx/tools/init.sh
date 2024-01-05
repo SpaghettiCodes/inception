@@ -1,4 +1,3 @@
 #! /bin/bash
 
-echo 'Nginx Status:'
-systemctl status nginx
+nginx -g 'daemon off;';
