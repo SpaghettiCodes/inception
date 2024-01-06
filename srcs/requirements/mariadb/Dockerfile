@@ -5,6 +5,7 @@ RUN chmod 755 init.sh
 
 RUN apt-get update && apt-get upgrade -y
 RUN apt-get install mariadb-server -y
-RUN apt-get install systemctl -y
+
+EXPOSE 3306
 
 CMD ["./init.sh"]
