@@ -1,29 +1,54 @@
-# The MariaDB configuration file
-#
-# The MariaDB/MySQL tools read configuration files in the following order:
-# 0. "/etc/mysql/my.cnf" symlinks to this file, reason why all the rest is read.
-# 1. "/etc/mysql/mariadb.cnf" (this file) to set global defaults,
-# 2. "/etc/mysql/conf.d/*.cnf" to set global options.
-# 3. "/etc/mysql/mariadb.conf.d/*.cnf" to set MariaDB-only options.
-# 4. "~/.my.cnf" to set user-specific options.
-#
-# If the same option is defined multiple times, the last one will apply.
-#
-# One can use all long options that the program supports.
-# Run program with --help to get a list of available options and with
-# --print-defaults to see which it would actually understand and use.
-#
-# If you are new to MariaDB, check out https://mariadb.com/kb/en/basic-mariadb-articles/
 
 #
-# This group is read both by the client and the server
-# use it for options that affect everything
-#
-[client-server]
-# Port or socket location where to connect
-port = 3306
-socket = /run/mysqld/mysqld.sock
+# These groups are read by MariaDB server.
+# Use it for options that only the server (but not clients) should see
 
-# Import all .cnf files from configuration directory
-!includedir /etc/mysql/conf.d/
-!includedir /etc/mysql/mariadb.conf.d/
+# this is read by the standalone daemon and embedded servers
+[server]
+
+# this is only for the mysqld standalone daemon
+[mysqld]
+
+#
+# * Basic Settings
+#
+
+#user                    = mysql
+pid-file                = /run/mysqld/mysqld.pid
+basedir                 = /usr
+#datadir                 = /var/lib/mysql
+#tmpdir                  = /tmp
+
+# Broken reverse DNS slows down connections considerably and name resolve is
+# safe to skip if there are no "host by domain name" access grants
+#skip-name-resolve
+
+# Instead of skip-networking the default is now to listen only on
+# localhost which is more compatible and is not less secure.
+
+# changed the bind-address to 0.0.0.0 so that MariaDB server accepts connections
+# on all host IPv4 interfaces
+bind-address            = 0.0.0.0
+
+#
+# * Fine Tuning
+#
+
+#key_buffer_size        = 128M
+#max_allowed_packet     = 1G
+#thread_stack           = 192K
+#thread_cache_size      = 8
+# This replaces the startup script and checks MyISAM tables if needed
+# the first time they are touched
+#myisam_recover_options = BACKUP
+#max_connections        = 100
+#table_cache            = 64
+
+#
+# * Logging and Replication
+#
+
+# Note: The configured log file or its directory need to be created
+# and be writable by the mysql user, e.g.:
+# $ sudo mkdir -m 2750 /var/log/mysql
+# $ sudo chown mysql /var/log/mysql
