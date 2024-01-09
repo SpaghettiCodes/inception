@@ -1,21 +1,13 @@
-DOCKER_DIR = ./srcs/requirements
+up:
+	@docker compose -f ./srcs/docker-compose.yaml up
 
-NGINX_DIR = "$(DOCKER_DIR)/nginx"
+down:
+	@docker compose -f ./srcs/docker-compose.yaml down
 
-WORDPRESS_DIR = "$(DOCKER_DIR)/wordpress"
+clean: down
+	@echo "Cleaning all images and containers"
+	@docker system prune -af
 
-MARIADB_DIR = "$(DOCKER_DIR)/mariadb"
-
-all: nginx wordpress mariadb
-
-nginx:
-	docker build ${NGINX_DIR} -t $@
-
-wordpress:
-	docker build ${WORDPRESS_DIR} -t $@
-
-mariadb:
-	docker build ${MARIADB_DIR} -t $@
-
-clean:
-	docker image rm nginx wordpress mariadb -f
+fclean: clean
+	@echo "Cleaning volumes"
+	@docker volume prune -af

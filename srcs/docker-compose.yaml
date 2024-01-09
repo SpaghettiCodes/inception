@@ -4,9 +4,13 @@ services:
     ports: 
       - "443:443"
     expose:
-      - "9000:9000"
+      - "9000"
     env_file:
       - .env
+    volumes:
+      - wp-file:/var/www/html
+    networks:
+      - Inception
 
   mariadb:
     build: ./requirements/mariadb    
@@ -16,6 +20,24 @@ services:
       - db-data:/var/lib/mysql
     env_file:
       - .env
+    networks:
+      - Inception
+
+  wordpress:
+    build: ./requirements/wordpress
+    expose:
+      - "9000"
+      - "3306"
+    networks:
+      - Inception
+    env_file:
+      - .env
+    volumes:
+      - wp-file:/var/www/html
 
 volumes:
   db-data:
+  wp-file:
+
+networks:
+  Inception:
