@@ -11,6 +11,8 @@ services:
       - wp-file:/var/www/html
     networks:
       - Inception
+    depends_on:
+      - wordpress
 
   mariadb:
     build: ./requirements/mariadb    
@@ -34,10 +36,23 @@ services:
       - .env
     volumes:
       - wp-file:/var/www/html
+    depends_on:
+      - mariadb
 
 volumes:
   db-data:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/cshi-xia/data/db
+      o: bind
+
   wp-file:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/cshi-xia/data/wp
+      o: bind
 
 networks:
   Inception:

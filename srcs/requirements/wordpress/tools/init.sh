@@ -28,31 +28,35 @@ else
 	echo 'Setting Configuration File ...'
 	./wp-cli.phar core config \
 		--path=/var/www/html/wordpress \
-		--dbhost=$DB_HOSTNAME \
-		--dbname=$MYSQL_DATABASE \
-		--dbuser=$MYSQL_USER \
-		--dbpass=$MYSQL_PASSWORD \
+		--dbhost="$DB_HOSTNAME" \
+		--dbname="$MYSQL_DATABASE" \
+		--dbuser="$MYSQL_USER" \
+		--dbpass="$MYSQL_PASSWORD" \
 		--allow-root
 
 	echo 'Initializing Wordpress...'
 	./wp-cli.phar core install \
 		--path=/var/www/html/wordpress \
-		--url=$WP_URL \
+		--url="$WP_URL" \
 		--title="$WP_TITLE" \
-		--admin_name=$WP_ADMIN_NAME \
-		--admin_password=$WP_ADMIN_PASS \
-		--admin_email=$WP_ADMIN_EMAIL \
+		--admin_name="$WP_ADMIN_NAME" \
+		--admin_password="$WP_ADMIN_PASS" \
+		--admin_email="$WP_ADMIN_EMAIL" \
 		--allow-root
 
-	chmod 777 /var/www/html/wordpress/*
-	# chmod 644 /var/www/html/wordpress/wp-config.php
-
+	echo 'Create a New User'
 	./wp-cli.phar user create \
 		--path=/var/www/html/wordpress \
-		$WP_USR_LOGIN \
-		$WP_USR_EMAIL \
-		--user_pass=$WP_USR_PASS \
+		"$WP_USR_LOGIN" \
+		"$WP_USR_EMAIL" \
+		--user_pass="$WP_USR_PASS" \
 		--allow-root
+
+	echo 'Setting File Permissions'
+	chmod -R 755 /var/www/html/wordpress
+	chmod -R 644 /var/www/html/wordpress/index.php
+	chmod -R 640 /var/www/html/wordpress/wp-config.php
+	chown -R www-data:www-data /var/www/html/wordpress
 fi
 
 # i love nuking old codes
