@@ -71,6 +71,7 @@ else
 	./wp-cli.phar plugin activate redis-cache \
 		--allow-root \
 		--path=/var/www/html/wordpress
+
 	./wp-cli.phar redis enable \
 		--allow-root \
 		--path=/var/www/html/wordpress 
