@@ -6,4 +6,4 @@
 
 openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/nginx-selfsigned.key -out /etc/ssl/certs/nginx-selfsigned.crt -subj "/C=$country/ST=$state/L=$city/O=$org/OU=$position/CN=$domain_name" 2> /dev/null
 
-nginx -g 'daemon off;';
+exec nginx -g 'daemon off;';

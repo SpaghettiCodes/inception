@@ -23,12 +23,11 @@ FLUSH PRIVILEGES;" > init.sql
 mysql_install_db
 
 # run the command
-# --bootstrap creates the MySQL privilege tables
+# --bootstrap is mainly used by mysql_install_db to create MySQL privilege tables
 # we dont care bout that, the important part is it does not start the MariaDB server
 # and it also accepts sql commands
 # this means we can run the pre-requisite commands in the above w/o starting the server
 mysqld --user=mysql --bootstrap < init.sql
-
 # kill off the started mariadb
 #
 # This did not work because somehow i need the password????
@@ -41,5 +40,4 @@ mysqld --user=mysql --bootstrap < init.sql
 # echo 'launching mysqld'
 
 # runs mariadb in the foreground
-mysqld_safe --user=mysql
-
+exec mysqld_safe --user=mysql

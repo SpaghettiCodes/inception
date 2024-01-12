@@ -75,5 +75,5 @@ fi
 #
 # -R -> allow running as root
 
-php-fpm8.2 -F -R
+exec php-fpm8.2 -F -R
 

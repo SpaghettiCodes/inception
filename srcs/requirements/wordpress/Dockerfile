@@ -11,4 +11,4 @@ RUN chmod 755 ./init.sh
 # COPY ./config/wp-config.php /var/www/html/wordpress/wp-config.php
 COPY ./config/www.conf /etc/php/8.2/fpm/pool.d/www.conf 
 
-CMD ["./init.sh"]
+ENTRYPOINT ["./init.sh"]

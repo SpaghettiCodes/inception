@@ -11,4 +11,4 @@ COPY ./config/maria.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
 
 EXPOSE 3306
 
-CMD ["./init.sh"]
+ENTRYPOINT ["./init.sh"]

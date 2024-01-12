@@ -18,4 +18,4 @@ RUN chmod 700 /etc/ssl/private
 EXPOSE 443
 
 # set the cmd to run as init.sh
-CMD ["./init.sh"]
+ENTRYPOINT ["./init.sh"]
