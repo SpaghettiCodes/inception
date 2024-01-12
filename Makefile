@@ -35,6 +35,6 @@ nuke:
 	@rm -rf $(WP_DIR)/*
 	@echo "Done!"
 
-re: clean up
+re: down build up
 
 .PHONY: up down clean fclean nuke re

@@ -18,11 +18,6 @@ else
 
 	mkdir -p /var/www/html/wordpress
 
-	echo 'Getting Wordpress ...'
-	wget -q https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
-	chmod +x wp-cli.phar
-	# mv wp-cli.phar /usr/local/bin/wp
-
 	echo 'Downloading Wordpress Files ...'
 	./wp-cli.phar core download --path=/var/www/html/wordpress --allow-root
 	echo 'Setting Configuration File ...'
@@ -33,6 +28,11 @@ else
 		--dbuser="$MYSQL_USER" \
 		--dbpass="$MYSQL_PASSWORD" \
 		--allow-root
+
+	echo 'Adding Required Stuff for Redir'
+	./wp-cli.phar config set WP_REDIS_PREFIX	cshi-xia	--allow-root	--path=/var/www/html/wordpress 
+	./wp-cli.phar config set WP_REDIS_HOST		redis		--allow-root	--path=/var/www/html/wordpress 
+	./wp-cli.phar config set WP_REDIS_PORT		6379		--allow-root	--path=/var/www/html/wordpress 
 
 	echo 'Initializing Wordpress...'
 	./wp-cli.phar core install \
@@ -57,7 +57,32 @@ else
 	chmod -R 644 /var/www/html/wordpress/index.php
 	chmod -R 640 /var/www/html/wordpress/wp-config.php
 	chown -R www-data:www-data /var/www/html/wordpress
+
+	# setting up redis
+	
+	# install plugin
+	./wp-cli.phar plugin install	\
+		redis-cache	\
+		--allow-root	\
+		--path=/var/www/html/wordpress
+			
+	# activate redis plugin
+	echo 'Activating redis ... '
+	./wp-cli.phar plugin activate redis-cache \
+		--allow-root \
+		--path=/var/www/html/wordpress
+	./wp-cli.phar redis enable \
+		--allow-root \
+		--path=/var/www/html/wordpress 
 fi
+
+
+
+# activate plugin w/ options
+# ./wp-cli.phar redis enable		\
+#	--path=/var/www/html/wordpress	\
+#	--ssh=redis:6379		\
+#	--allow-root
 
 # i love nuking old codes
 
@@ -75,5 +100,6 @@ fi
 #
 # -R -> allow running as root
 
+echo 'Wordpress Server is Ready!'
 exec php-fpm8.2 -F -R
 
