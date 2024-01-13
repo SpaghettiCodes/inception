@@ -4,7 +4,6 @@ if [ -d /var/www/html/wordpress ]
 then
 	echo "Wordpress already installed"
 else
-	# TODO: fix this
 	# this will not work as this leads to the GUI installation page
 	# u r suppose to install it in this script
 
@@ -29,7 +28,7 @@ else
 		--dbpass="$MYSQL_PASSWORD" \
 		--allow-root
 
-	echo 'Adding Required Stuff for Redir'
+	echo 'Adding Required Constants for Redir'
 	./wp-cli.phar config set WP_REDIS_PREFIX	cshi-xia	--allow-root	--path=/var/www/html/wordpress 
 	./wp-cli.phar config set WP_REDIS_HOST		redis		--allow-root	--path=/var/www/html/wordpress 
 	./wp-cli.phar config set WP_REDIS_PORT		6379		--allow-root	--path=/var/www/html/wordpress 

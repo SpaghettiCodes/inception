@@ -2,7 +2,7 @@ FROM debian:bookworm-slim
 
 RUN apt-get update && apt-get upgrade
 RUN apt-get install nano wget unzip -y
-RUN apt-get install php php-fpm php-mysql -y # if i need more then i add here :P
+RUN apt-get install php php-fpm php-mysql php-redis -y # if i need more then i add here :P
 
 # required for redis
 RUN apt-get install ssh -y
