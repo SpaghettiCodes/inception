@@ -1,95 +1,95 @@
 services:
     nginx:
-		build: ./requirements/nginx
-		ports: 
-			- "443:443"
-		expose:
-			- "9000"
-		env_file:
-			- .env
-		volumes:
-			- wp-file:/var/www/html
-		networks:
-			- Inception
-		depends_on:
-			- wordpress
+        build: ./requirements/nginx
+        ports: 
+            - "443:443"
+        expose:
+            - "9000"
+        env_file:
+            - .env
+        volumes:
+            - wp-file:/var/www/html
+        networks:
+            - Inception
+        depends_on:
+            - wordpress
 
-	mariadb:
-		build: ./requirements/mariadb
-		expose:
-			- "3306"
-		volumes:
-			- db-data:/var/lib/mysql
-		env_file:
-			- .env
-		networks:
-			- Inception
-		init: true
+    mariadb:
+        build: ./requirements/mariadb
+        expose:
+            - "3306"
+        volumes:
+            - db-data:/var/lib/mysql
+        env_file:
+            - .env
+        networks:
+            - Inception
+        init: true
 
-	wordpress:
-		build: ./requirements/wordpress
-		expose:
-			- "9000"
-			- "3306"
-			- "6379"
-		networks:
-			- Inception
-		env_file:
-			- .env
-		volumes:
-			- wp-file:/var/www/html
-		depends_on:
-			- mariadb
-			# - redis
+    wordpress:
+        build: ./requirements/wordpress
+        expose:
+            - "9000"
+            - "3306"
+            - "6379"
+        networks:
+            - Inception
+        env_file:
+            - .env
+        volumes:
+            - wp-file:/var/www/html
+        depends_on:
+            - mariadb
+            # - redis
 
-	# redis is temporary disabled to work on ftp
-	# redis:
-	#    build: ./requirements/bonus/redis
-	#    expose:
-	#        - "6379"
-	#    networks:
-	#        - Inception
-	#    env_file:
-	#        - .env
+    # redis is temporary disabled to work on ftp
+    # redis:
+    #    build: ./requirements/bonus/redis
+    #    expose:
+    #        - "6379"
+    #    networks:
+    #        - Inception
+    #    env_file:
+    #        - .env
 
-	ftp:
-		build: ./requirements/bonus/ftp
-		ports:
-			- "21:21"
-			- "20:20"
-			- "40000-40025:40000-40025"
-			- "990:990"
-			# we deal with this later
-			# - "22:22"
-		volumes:
-			- wp-file:/ftp
-			- ftp-file:/logs
-		env_file:
-			- .env
-		networks:
-			- Inception
+    ftp:
+        build: ./requirements/bonus/ftp
+        ports:
+            - "21:21"
+            - "20:20"
+            - "40000-40025:40000-40025"
+            - "990:990"
+            # we deal with this later
+            # - "22:22"
+        volumes:
+            - wp-file:/ftp
+            - ftp-file:/logs
+        env_file:
+            - .env
+        networks:
+            - Inception
 
 volumes:
-	db-data:
-		driver: local
-		driver_opts:
-			type: none
-			device: /home/cshi-xia/data/db
-			o: bind
+    db-data:
+        driver: local
+        driver_opts:
+            type: none
+            device: /home/cshi-xia/data/db
+            o: bind
 
-	wp-file:
-		driver: local
-		driver_opts:
-			type: none
-			device: /home/cshi-xia/data/wp
-			o: bind
+    wp-file:
+        driver: local
+        driver_opts:
+            type: none
+            device: /home/cshi-xia/data/wp
+            o: bind
 
-	ftp-file:
-		driver: local
-		driver_opts:
-			type: none 
-			device: /home/cshi-xia/data/ftp
-			o: bind
+    ftp-file:
+        driver: local
+        driver_opts:
+            type: none 
+            device: /home/cshi-xia/data/ftp
+            o: bind
 
 networks:
-	Inception:
+    Inception:
