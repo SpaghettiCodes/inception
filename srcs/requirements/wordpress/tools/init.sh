@@ -58,22 +58,23 @@ else
 	chown -R www-data:www-data /var/www/html/wordpress
 
 	# setting up redis
-	
+	# disabled temporary to work on tfp (i think this is consuming a lot of resource)	
+
 	# install plugin
-	./wp-cli.phar plugin install	\
-		redis-cache	\
-		--allow-root	\
-		--path=/var/www/html/wordpress
+	# ./wp-cli.phar plugin install	\
+	# 	redis-cache	\
+	#	--allow-root	\
+	#	--path=/var/www/html/wordpress
 			
 	# activate redis plugin
-	echo 'Activating redis ... '
-	./wp-cli.phar plugin activate redis-cache \
-		--allow-root \
-		--path=/var/www/html/wordpress
+	# echo 'Activating redis ... '
+	# ./wp-cli.phar plugin activate redis-cache \
+	#	--allow-root \
+	#	--path=/var/www/html/wordpress
 
-	./wp-cli.phar redis enable \
-		--allow-root \
-		--path=/var/www/html/wordpress 
+	# ./wp-cli.phar redis enable \
+	#	--allow-root \
+	#	--path=/var/www/html/wordpress 
 fi
 
 

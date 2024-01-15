@@ -40,24 +40,27 @@ services:
       - wp-file:/var/www/html
     depends_on:
       - mariadb
-      - redis
+      # - redis
 
-  redis:
-    build: ./requirements/bonus/redis
-    expose:
-      - "6379"
-    networks:
-      - Inception
-    env_file:
-      - .env
+  # redis is temporary disabled to work on ftp
+  # redis:
+  #  build: ./requirements/bonus/redis
+  #  expose:
+  #    - "6379"
+  #  networks:
+  #    - Inception
+  #  env_file:
+  #    - .env
 
   ftp:
     build: ./requirements/bonus/ftp
     ports:
       - "21:21"
       - "20:20"
-      - "40000-50000:40000-50000"
-      - "22:22"
+      - "40000-40025:40000-40025"
+      - "990:990"
+      # we deal with this later
+      # - "22:22"
     volumes:
       - wp-file:/ftp
     env_file:
