@@ -58,8 +58,11 @@ services:
             - "21:21"
             - "20:20"
             - "40000-40025:40000-40025"
-            - "990:990"
-            # we deal with this later
+            # explicit ssl
+			# not needed, since our 21 port is already implicit ssl
+			# - "990:990"
+            # ssh connection
+			# we deal with this later
             # - "22:22"
         volumes:
             - wp-file:/ftp
@@ -68,6 +71,8 @@ services:
             - .env
         networks:
             - Inception
+        # ftp seg-faults for nooo fucking reason
+        restart: on-failure
 
 volumes:
     db-data:
