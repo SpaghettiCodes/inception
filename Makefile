@@ -9,6 +9,7 @@ build:
 	@echo "Creating data folders ..."
 	@mkdir -p /home/cshi-xia/data/wp
 	@mkdir -p /home/cshi-xia/data/db 
+	@mkdir -p /home/cshi-xia/data/ftp
 	@echo "Done!"
 	docker compose -f ./srcs/docker-compose.yaml build
 
