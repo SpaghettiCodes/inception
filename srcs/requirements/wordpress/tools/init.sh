@@ -77,14 +77,6 @@ else
 	#	--path=/var/www/html/wordpress 
 fi
 
-
-
-# activate plugin w/ options
-# ./wp-cli.phar redis enable		\
-#	--path=/var/www/html/wordpress	\
-#	--ssh=redis:6379		\
-#	--allow-root
-
 # i love nuking old codes
 
 # cp /var/www/html/wordpress/wp-config-sample.php /var/www/html/wordpress/wp-config.php
@@ -102,5 +94,6 @@ fi
 # -R -> allow running as root
 
 echo 'Wordpress Server is Ready!'
-exec php-fpm8.2 -F -R
+exec php-fpm7.4 -F -R
+
 

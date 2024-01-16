@@ -18,5 +18,4 @@ echo "$FTP_USR_LOGIN" >> /etc/vsftpd.chroot_list
 echo "Created!"
 
 echo "FTP Server is now running"
-exec vsftpd
-
+exec vsftpd /etc/vsftpd.conf

@@ -13,8 +13,11 @@ RUN chmod +x wp-cli.phar
 COPY ./tools/init.sh ./init.sh
 RUN chmod 755 ./init.sh
 
+# why are thou complaining about no file
+RUN mkdir -p /run/php
+
 # copy config
 # COPY ./config/wp-config.php /var/www/html/wordpress/wp-config.php
-COPY ./config/www.conf /etc/php/8.2/fpm/pool.d/www.conf 
+COPY ./config/www.conf /etc/php/7.4/fpm/pool.d/www.conf 
 
 ENTRYPOINT ["./init.sh"]

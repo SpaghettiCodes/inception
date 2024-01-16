@@ -9,6 +9,7 @@ services:
             - .env
         volumes:
             - wp-file:/var/www/html
+            - adminer-file:/var/www/html/adminer
         networks:
             - Inception
         depends_on:
@@ -66,13 +67,23 @@ services:
             # - "22:22"
         volumes:
             - wp-file:/ftp
-            - ftp-file:/logs
         env_file:
             - .env
         networks:
             - Inception
         # ftp seg-faults for nooo fucking reason
         restart: on-failure
+
+    adminer:
+        build: ./requirements/bonus/adminer
+        expose:
+            - "8000"
+        networks:
+            - Inception
+        env_file:
+            - .env
+        volumes:
+            - adminer-file:/var/www/html/adminer	
 
 volumes:
     db-data:
@@ -89,11 +100,11 @@ volumes:
             device: /home/cshi-xia/data/wp
             o: bind
 
-    ftp-file:
+    adminer-file:
         driver: local
         driver_opts:
-            type: none 
-            device: /home/cshi-xia/data/ftp
+            type: none
+            device: /home/cshi-xia/data/admin
             o: bind
 
 networks:
