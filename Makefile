@@ -1,16 +1,23 @@
 VOLUME_USED := $(shell docker volume ls -q)
-DB_DIR = /home/cshi-xia/data/db
-WP_DIR = /home/cshi-xia/data/wp
-ADMIN_DIR = /home/cshi-xia/data/admin
+HOME = /home/cshi-xia
+DB_DIR = ${HOME}/data/db
+WP_DIR = ${HOME}/data/wp
+ADMIN_DIR = ${HOME}/data/admin
+GIT_DIR = ${HOME}/data/git
 
-all: build up
+all: dir build up
+
+dir: 
+	@echo "Creating Volume Directory ..."
+	@mkdir -p $(DB_DIR)
+	@mkdir -p $(WP_DIR)
+	@mkdir -p $(GIT_DIR)
+	@mkdir -p $(ADMIN_DIR)
+	@echo "Done!"
 
 build:
 	@echo "Building Images ..."
 	@echo "Creating data folders ..."
-	@mkdir -p $(DB_DIR)
-	@mkdir -p $(WP_DIR)
-	@mkdir -p $(ADMIN_DIR)
 	@echo "Done!"
 	docker compose -f ./srcs/docker-compose.yaml build
 
@@ -35,9 +42,10 @@ clean: down
 
 nuke:
 	@echo "Cleaning Directories"
-	@rm -rf $(DB_DIR)/*
-	@rm -rf $(WP_DIR)/*
-	@rm -rf $(ADMIN_DIR)/*
+	@rm -rf "$(DB_DIR)"
+	@rm -rf "$(WP_DIR)"
+	@rm -rf "$(ADMIN_DIR)"
+	@rm -rf "$(GIT_DIR)"
 	@echo "Done!"
 
 re: down build up
