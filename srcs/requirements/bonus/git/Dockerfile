@@ -6,7 +6,9 @@ RUN apt-get install openssh-server -y
 
 COPY	./tools/init.sh ./init.sh
 COPY	./tools/git_init.sh ./git_init.sh
+
 RUN		useradd -m git
+RUN		chsh git -s $(which git-shell)
 
 RUN chmod +x ./git_init.sh
 RUN chmod +x ./init.sh
