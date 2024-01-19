@@ -82,14 +82,23 @@ services:
         volumes:
             - adminer-file:/var/www/html/adminer	
 
-    git:
-        build: ./requirements/bonus/git
+    gitea:
+        build: ./requirements/bonus/gitea 
         ports:
-            - "4242:22" # open ssh port in another port since well, i kinda need ssh :P
-        volumes:
-            - git-data:/home/git/
+            - "80:80"
         env_file:
             - .env
+        networks:
+            - Inception
+
+    # git:
+    #    build: ./requirements/bonus/git
+    #    ports:
+    #        - "4242:22" # open ssh port in another port since well, i kinda need ssh :P
+    #    volumes:
+    #        - git-data:/home/git/
+    #    env_file:
+    #        - .env
 
 volumes:
     db-data:
