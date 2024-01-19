@@ -2,7 +2,7 @@ FROM debian:bullseye-slim
 
 # install nginx and openssl
 RUN apt-get update
-RUN apt-get install nginx -y
+RUN apt-get install nginx vim -y
 RUN apt-get install openssl -y
 
 # copy over the init.sh bash script and set execute permissions

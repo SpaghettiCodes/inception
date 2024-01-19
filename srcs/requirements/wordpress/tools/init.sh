@@ -23,9 +23,9 @@ else
 	./wp-cli.phar core config \
 		--path=/var/www/html/wordpress \
 		--dbhost="$DB_HOSTNAME" \
-		--dbname="$MYSQL_DATABASE" \
-		--dbuser="$MYSQL_USER" \
-		--dbpass="$MYSQL_PASSWORD" \
+		--dbname="$WP_DATABASE" \
+		--dbuser="$WP_DB_USER" \
+		--dbpass="$WP_DB_PASS" \
 		--allow-root
 
 	echo 'Adding Required Constants for Redir'

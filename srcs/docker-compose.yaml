@@ -14,6 +14,8 @@ services:
             - Inception
         depends_on:
             - wordpress
+            - adminer
+            - gitea
 
     mariadb:
         build: ./requirements/mariadb
@@ -84,13 +86,14 @@ services:
 
     gitea:
         build: ./requirements/bonus/gitea 
-        ports:
-            - "80:80"
+        expose:
+            - "7000"
         env_file:
             - .env
         networks:
             - Inception
-
+        volumes:
+            - gitea-data:/repo
     # git:
     #    build: ./requirements/bonus/git
     #    ports:
@@ -113,7 +116,6 @@ volumes:
         driver_opts:
             type: none
             device: /home/cshi-xia/data/wp
-
             o: bind
 
     adminer-file:
@@ -128,6 +130,13 @@ volumes:
         driver_opts:
             type: none
             device: /home/cshi-xia/data/git
+            o: bind
+
+    gitea-data:
+        driver: local
+        driver_opts:
+            type: none
+            device: /home/cshi-xia/data/git_repo
             o: bind
 
 networks:

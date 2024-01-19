@@ -11,6 +11,9 @@ RUN chmod +x /usr/local/bin/gitea
 
 COPY ./tools/init.sh ./init.sh
 RUN chmod +x ./init.sh
-# COPY ./tools/git_init.sh ./git_init.sh
+
+COPY ./conf/gitea.conf /usr/local/bin/custom/conf/app.ini
+
+RUN mkdir -p ./log
 
 ENTRYPOINT ["./init.sh"]
