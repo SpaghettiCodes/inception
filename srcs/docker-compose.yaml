@@ -10,6 +10,7 @@ services:
         volumes:
             - wp-file:/var/www/html
             - adminer-file:/var/www/html/adminer
+            - static-file:/var/www/html/static
         networks:
             - Inception
         depends_on:
@@ -60,9 +61,6 @@ services:
             - "21:21"
             - "20:20"
             - "40000-40025:40000-40025"
-            # explicit ssl
-			# not needed, since our 21 port is already implicit ssl
-			# - "990:990"
             # ssh connection
 			# we deal with this later
             # - "22:22"
@@ -94,14 +92,8 @@ services:
             - Inception
         volumes:
             - gitea-data:/repo
-    # git:
-    #    build: ./requirements/bonus/git
-    #    ports:
-    #        - "4242:22" # open ssh port in another port since well, i kinda need ssh :P
-    #    volumes:
-    #        - git-data:/home/git/
-    #    env_file:
-    #        - .env
+        depends_on: 
+            - mariadb
 
 volumes:
     db-data:
@@ -125,18 +117,18 @@ volumes:
             device: /home/cshi-xia/data/admin
             o: bind
 
-    git-data:
-        driver: local
-        driver_opts:
-            type: none
-            device: /home/cshi-xia/data/git
-            o: bind
-
     gitea-data:
         driver: local
         driver_opts:
             type: none
             device: /home/cshi-xia/data/git_repo
+            o: bind
+
+    static-file:
+        driver: local
+        driver_opts:
+            type: none
+            device: ./static
             o: bind
 
 networks:

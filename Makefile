@@ -3,7 +3,6 @@ HOME = /home/cshi-xia
 DB_DIR = ${HOME}/data/db
 WP_DIR = ${HOME}/data/wp
 ADMIN_DIR = ${HOME}/data/admin
-GIT_DIR = ${HOME}/data/git
 GITEA_DIR = ${HOME}/data/git_repo
 
 all: dir build up
@@ -12,7 +11,6 @@ dir:
 	@echo "Creating Volume Directory ..."
 	@mkdir -p $(DB_DIR)
 	@mkdir -p $(WP_DIR)
-	@mkdir -p $(GIT_DIR)
 	@mkdir -p $(ADMIN_DIR)
 	@mkdir -p $(GITEA_DIR)
 	@echo "Done!"
@@ -37,17 +35,11 @@ clean: down
 	@docker system prune -af
 	@echo "Cleaned!"
 
-# fclean: clean
-#	@echo "Cleaning volumes"
-#	docker volume rm $(VOLUME_USED)
-#	@echo "Done!"
-
 nuke:
 	@echo "Cleaning Directories"
 	@rm -rf "$(DB_DIR)"
 	@rm -rf "$(WP_DIR)"
 	@rm -rf "$(ADMIN_DIR)"
-	@rm -rf "$(GIT_DIR)"
 	@rm -rf "$(GITEA_DIR)"
 	@echo "Done!"
 

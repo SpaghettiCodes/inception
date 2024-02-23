@@ -13,6 +13,7 @@ COPY ./tools/init.sh ./init.sh
 RUN chmod +x ./init.sh
 
 COPY ./conf/gitea.conf /usr/local/bin/custom/conf/app.ini
+RUN chown -R git /usr/local/bin/custom/conf/app.ini
 
 RUN mkdir -p ./log
 

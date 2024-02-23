@@ -8,7 +8,6 @@ else
 	# u r suppose to install it in this script
 
 	# get Wordpress
-	# turn off wget output because its noisy as shit
 	# wget -q https://wordpress.org/latest.zip
 	# extract contents of Wordpress
 	# unzip latest.zip -d /var/www/html
@@ -58,7 +57,6 @@ else
 	chown -R www-data:www-data /var/www/html/wordpress
 
 	# setting up redis
-	# disabled temporary to work on tfp (i think this is consuming a lot of resource)	
 
 	# install plugin
 	 ./wp-cli.phar plugin install	\
@@ -76,16 +74,6 @@ else
 		--allow-root \
 		--path=/var/www/html/wordpress 
 fi
-
-# i love nuking old codes
-
-# cp /var/www/html/wordpress/wp-config-sample.php /var/www/html/wordpress/wp-config.php
-
-# time to change the wp-config.php
-# sed -i "s/database_name_here/$MYSQL_DATABASE/g" /var/www/html/wordpress/wp-config.php
-# sed -i "s/username_here/$MYSQL_USER/g" /var/www/html/wordpress/wp-config.php
-# sed -i "s/password_here/$MYSQL_PASSWORD/g" /var/www/html/wordpress/wp-config.php
-# sed -i "s/localhost/$DB_HOSTNAME/g" /var/www/html/wordpress/wp-config.php
 
 # run the php-fpm cgi for nginx to connect and communicate with 
 # -F -> force the php-fpm to stay at the foreground, and ignore daemonize option from config file
